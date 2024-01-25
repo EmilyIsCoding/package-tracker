@@ -14,24 +14,16 @@ app.use(express.json());
 // Create a package
 app.post("/packages", async (req, res) => {
   try {
-    const { tracking_number } = req.body;
-
     const tracker = await client.Tracker.create({
-      tracking_code: tracking_number,
+      tracking_code: req.body.tracking_number,
     });
 
-    // const newPackage = await pool.query(
-    //   "INSERT INTO packages (tracking_number) VALUES($1) RETURNING *",
-    //   [tracking_number]
-    // );
+    const newPackage = await pool.query(
+      "INSERT INTO packages (tracking_number, description) VALUES($1, $2) RETURNING *",
+      [req.body.tracking_number, req.body.description]
+    );
 
-    // console.log(`New Package: ${newPackage}`);
-    console.log(`This is the tracker: ${tracker}`);
-
-    res.json({
-      tracking_code: tracking_number,
-    });
-    // res.json(newPackage.rows[0]);
+    res.json(newPackage.rows[0]);
   } catch (err) {
     console.error(err);
   }
