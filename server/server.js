@@ -23,6 +23,7 @@ app.post("/packages", async (req, res) => {
       [req.body.tracking_number, req.body.description]
     );
 
+    console.log(tracker);
     res.json(newPackage.rows[0]);
   } catch (err) {
     console.error(err);
@@ -30,20 +31,59 @@ app.post("/packages", async (req, res) => {
 });
 
 // Get all packages
-app.get("/packages", (req, res) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      packages: ["123", "1234", "12345"],
-    },
-  });
+app.get("/packages", async (req, res) => {
+  try {
+    const allPackages = await pool.query("SELECT * FROM packages");
+    res.json(allPackages.rows);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // Get a package by id
+app.get("/packages/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const package = await pool.query(
+      "SELECT * FROM packages WHERE package_id = $1",
+      [id]
+    );
+    res.json(package.rows[0]);
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 // Update a package
+app.put("/packages/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { description } = req.body;
+
+    const updatePackage = await pool.query(
+      "UPDATE packages SET description = $1 WHERE package_id = $2",
+      [description, id]
+    );
+    res.json("Package was updated!");
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 // Delete a package
+app.delete("/packages/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletePackage = await pool.query(
+      "DELETE FROM packages WHERE package_id = $1",
+      [id]
+    );
+    res.json("Package was deleted!");
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
