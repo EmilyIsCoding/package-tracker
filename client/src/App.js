@@ -5,16 +5,15 @@ import InputPackage from "./components/InputPackage";
 import ListPackages from "./components/ListPackages";
 
 function App() {
-  const [trackingNumber, setTrackingNumber] = useState("");
-  const [description, setDescription] = useState("");
+  const [formValues, setFormValues] = useState({
+    trackingNumber: "",
+    description: "",
+  });
   const [packages, setPackages] = useState([]);
 
-  function handleTrackingNumberChange(e) {
-    setTrackingNumber(e.target.value);
-  }
-
-  function handleDescriptionChange(e) {
-    setDescription(e.target.value);
+  function handleFormValueChange(e) {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   }
 
   const getPackages = async () => {
@@ -35,6 +34,10 @@ function App() {
   return (
     <>
       <div className="container">
+        <InputPackage
+          formValues={formValues}
+          onChange={handleFormValueChange}
+        />
         <ListPackages packages={packages} />
       </div>
     </>
