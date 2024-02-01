@@ -1,6 +1,7 @@
 import React from "react";
+import EditPackage from "./EditPackage";
 
-const ListPackages = ({ packages, deletePackage }) => {
+const ListPackages = ({ packages, deletePackage, updateDescription }) => {
   return (
     <>
       {" "}
@@ -22,7 +23,11 @@ const ListPackages = ({ packages, deletePackage }) => {
               <td>{pkg.status}</td>
               <td>{pkg.est_delivery_date}</td>
               <td>
-                {/* <EditPackage pkg={pkg} updateDescription={updateDescription} /> */}
+                <EditPackage
+                  id={pkg.package_id}
+                  description={pkg.description}
+                  updateDescription={updateDescription}
+                ></EditPackage>
               </td>
               <td>
                 <button

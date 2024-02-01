@@ -34,14 +34,24 @@ function App() {
 
   const deletePackage = async (id) => {
     try {
-      const deletePackage = await fetch(
-        `http://localhost:5000/packages/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`http://localhost:5000/packages/${id}`, {
+        method: "DELETE",
+      });
       setPackages(packages.filter((pkg) => pkg.package_id !== id));
-      console.log(deletePackage);
+      console.log(response);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const updateDescription = async (id, description) => {
+    try {
+      const response = await fetch(`http://localhost:5000/packages/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(description),
+      });
+      console.log(`Update response: ${response}`);
     } catch (err) {
       console.error(err.message);
     }
@@ -55,7 +65,11 @@ function App() {
           formValues={formValues}
           onChange={handleFormValueChange}
         />
-        <ListPackages packages={packages} deletePackage={deletePackage} />
+        <ListPackages
+          packages={packages}
+          deletePackage={deletePackage}
+          updateDescription={updateDescription}
+        />
       </div>
     </>
   );
