@@ -1,6 +1,6 @@
 import React from "react";
 
-const ListPackages = ({ packages }) => {
+const ListPackages = ({ packages, deletePackage }) => {
   return (
     <>
       {" "}
@@ -12,7 +12,6 @@ const ListPackages = ({ packages }) => {
             <th>Status</th>
             <th>Estimated Delivery</th>
             <th>Edit</th>
-            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +27,7 @@ const ListPackages = ({ packages }) => {
               <td>
                 <button
                   className="btn btn-danger"
-                  //   onClick={() => deletePackage(pkg.package_id)}
+                  onClick={() => deletePackage(pkg.package_id)}
                 >
                   Delete
                 </button>

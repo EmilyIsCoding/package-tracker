@@ -32,6 +32,21 @@ function App() {
     getPackages();
   }, [packages]);
 
+  const deletePackage = async (id) => {
+    try {
+      const deletePackage = await fetch(
+        `http://localhost:5000/packages/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      setPackages(packages.filter((pkg) => pkg.package_id !== id));
+      console.log(deletePackage);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <>
       <div className="container">
@@ -39,7 +54,7 @@ function App() {
           formValues={formValues}
           onChange={handleFormValueChange}
         />
-        <ListPackages packages={packages} />
+        <ListPackages packages={packages} deletePackage={deletePackage} />
       </div>
     </>
   );
