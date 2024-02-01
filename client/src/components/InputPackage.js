@@ -16,7 +16,6 @@ const InputPackage = ({ formValues, onChange }) => {
   };
   return (
     <>
-      <h1 className="text-center mt-5">Input Package List</h1>
       <form className="d-flex mt-5" onSubmit={onSubmitForm}>
         <input
           name="tracking_number"
