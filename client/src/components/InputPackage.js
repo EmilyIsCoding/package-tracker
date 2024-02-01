@@ -7,9 +7,8 @@ const InputPackage = ({ formValues, onChange }) => {
       const response = await fetch("http://localhost:5000/packages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify(body.formValues),
       });
-      console.log(response);
     } catch (err) {
       console.error(err.message);
     }

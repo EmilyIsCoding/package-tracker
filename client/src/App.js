@@ -6,9 +6,10 @@ import ListPackages from "./components/ListPackages";
 
 function App() {
   const [formValues, setFormValues] = useState({
-    trackingNumber: "",
+    tracking_number: "",
     description: "",
   });
+
   const [packages, setPackages] = useState([]);
 
   function handleFormValueChange(e) {
