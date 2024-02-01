@@ -7,3 +7,5 @@ CREATE TABLE packages(
     status VARCHAR(255),
     est_delivery_date VARCHAR(255) NOT NULL,
 );
+
+-- Should I have another column to checkbox if they actually received it?
