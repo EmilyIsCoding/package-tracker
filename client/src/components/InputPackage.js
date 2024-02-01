@@ -3,11 +3,10 @@ import React from "react";
 const InputPackage = ({ formValues, onChange }) => {
   const onSubmitForm = async (e) => {
     try {
-      const body = { formValues };
       const response = await fetch("http://localhost:5000/packages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body.formValues),
+        body: JSON.stringify(formValues),
       });
     } catch (err) {
       console.error(err.message);
