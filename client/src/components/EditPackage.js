@@ -1,12 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
-const EditPackage = ({ id, description, updateDescription }) => {
-  try {
-    console.log(id);
-    console.log(description);
-  } catch (err) {
-    console.error(err.message);
-  }
+const EditPackage = ({ pkg, updateDescription }) => {
+  const [description, setDescription] = useState(pkg.description);
 
   return (
     <>
@@ -14,12 +9,16 @@ const EditPackage = ({ id, description, updateDescription }) => {
         type="button"
         class="btn btn-warning"
         data-bs-toggle="modal"
-        data-bs-target={`#id${id}`}
+        data-bs-target={`#id${pkg.package_id}`}
       >
         Edit
       </button>
 
-      <div class="modal" tabindex="-1" id={`id${id}`}>
+      <div
+        class="modal"
+        id={`id${pkg.package_id}`}
+        onClick={() => setDescription(pkg.description)}
+      >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -29,6 +28,7 @@ const EditPackage = ({ id, description, updateDescription }) => {
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={() => setDescription(pkg.description)}
               ></button>
             </div>
             <div class="modal-body">
@@ -36,6 +36,7 @@ const EditPackage = ({ id, description, updateDescription }) => {
                 type="text"
                 className="form-control"
                 value={description}
+                onChange={(e) => setDescription(e.target.value)}
               ></input>
             </div>
             <div class="modal-footer">
@@ -43,7 +44,7 @@ const EditPackage = ({ id, description, updateDescription }) => {
                 type="button"
                 class="btn btn-warning"
                 data-bs-dismiss="modal"
-                onClick={() => updateDescription(id, description)}
+                onClick={() => updateDescription(pkg.package_id, description)}
               >
                 Save
               </button>
@@ -51,6 +52,7 @@ const EditPackage = ({ id, description, updateDescription }) => {
                 type="button"
                 class="btn btn-danger"
                 data-bs-dismiss="modal"
+                onClick={() => setDescription(pkg.description)}
               >
                 Close
               </button>

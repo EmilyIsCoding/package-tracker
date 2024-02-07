@@ -49,9 +49,10 @@ function App() {
       const response = await fetch(`http://localhost:5000/packages/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(description),
+        body: JSON.stringify({ description }),
       });
-      console.log(`Update response: ${response}`);
+      console.log(description);
+      console.log(response);
     } catch (err) {
       console.error(err.message);
     }

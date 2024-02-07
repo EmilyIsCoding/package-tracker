@@ -24,8 +24,7 @@ const ListPackages = ({ packages, deletePackage, updateDescription }) => {
               <td>{pkg.est_delivery_date}</td>
               <td>
                 <EditPackage
-                  id={pkg.package_id}
-                  description={pkg.description}
+                  pkg={pkg}
                   updateDescription={updateDescription}
                 ></EditPackage>
               </td>
