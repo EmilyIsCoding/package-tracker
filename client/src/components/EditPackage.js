@@ -10,15 +10,12 @@ const EditPackage = ({ pkg, updateDescription }) => {
         class="btn btn-warning"
         data-bs-toggle="modal"
         data-bs-target={`#id${pkg.package_id}`}
+        onClick={() => setDescription(pkg.description)}
       >
         Edit
       </button>
 
-      <div
-        class="modal"
-        id={`id${pkg.package_id}`}
-        onClick={() => setDescription(pkg.description)}
-      >
+      <div class="modal" id={`id${pkg.package_id}`}>
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
