@@ -7,7 +7,7 @@ const EditPackage = ({ pkg, updateDescription }) => {
     <>
       <button
         type="button"
-        class="btn btn-warning"
+        className="btn btn-warning"
         data-bs-toggle="modal"
         data-bs-target={`#id${pkg.package_id}`}
         onClick={() => setDescription(pkg.description)}
@@ -15,20 +15,20 @@ const EditPackage = ({ pkg, updateDescription }) => {
         Edit
       </button>
 
-      <div class="modal" id={`id${pkg.package_id}`}>
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Edit Package</h5>
+      <div className="modal" id={`id${pkg.package_id}`}>
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Edit Package</h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={() => setDescription(pkg.description)}
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <input
                 type="text"
                 className="form-control"
@@ -36,10 +36,10 @@ const EditPackage = ({ pkg, updateDescription }) => {
                 onChange={(e) => setDescription(e.target.value)}
               ></input>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-warning"
+                className="btn btn-warning"
                 data-bs-dismiss="modal"
                 onClick={() => updateDescription(pkg.package_id, description)}
               >
@@ -47,7 +47,7 @@ const EditPackage = ({ pkg, updateDescription }) => {
               </button>
               <button
                 type="button"
-                class="btn btn-danger"
+                className="btn btn-danger"
                 data-bs-dismiss="modal"
                 onClick={() => setDescription(pkg.description)}
               >

@@ -19,7 +19,9 @@ function App() {
 
   const getPackages = async () => {
     try {
-      const response = await fetch("http://localhost:5000/packages");
+      const response = await fetch("http://localhost:5000/packages", {
+        mode: "cors",
+      });
       const jsonData = await response.json();
 
       setPackages(jsonData);
@@ -30,12 +32,17 @@ function App() {
 
   useEffect(() => {
     getPackages();
+  }, []);
+
+  useEffect(() => {
+    console.log("Re-rendered");
   }, [packages]);
 
   const deletePackage = async (id) => {
     try {
       const response = await fetch(`http://localhost:5000/packages/${id}`, {
         method: "DELETE",
+        mode: "cors",
       });
       setPackages(packages.filter((pkg) => pkg.package_id !== id));
       console.log(response);
@@ -50,7 +57,9 @@ function App() {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ description }),
+        mode: "cors",
       });
+      getPackages();
       console.log(description);
       console.log(response);
     } catch (err) {

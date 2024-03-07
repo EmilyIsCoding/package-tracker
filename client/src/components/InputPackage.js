@@ -2,6 +2,7 @@ import React from "react";
 
 const InputPackage = ({ formValues, onChange }) => {
   const onSubmitForm = async (e) => {
+    // e.preventDefault();
     try {
       if (formValues.tracking_number === "") {
         return alert("Please input a tracking number.");
@@ -10,8 +11,11 @@ const InputPackage = ({ formValues, onChange }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValues),
+        mode: "cors",
       });
-      console.log(`Successful response: ${response}`);
+
+      const result = await response.json();
+      console.log(`Successful response: ${result}`);
     } catch (err) {
       console.error(err.message);
       return alert("Invalid tracking number");
