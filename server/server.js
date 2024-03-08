@@ -34,11 +34,14 @@ app.post("/packages", async (req, res) => {
       ]
     );
 
-    console.log(tracker);
-    console.log(estDeliveryDate);
+    console.log(newPackage.rows[0]);
+
+    // console.log(tracker);
+    // console.log(estDeliveryDate);
     res.json(newPackage.rows[0]);
   } catch (err) {
     console.error(err);
+    res.status(500).json({ error: "Error: Invalid tracking number" });
   }
 });
 
@@ -64,6 +67,11 @@ app.get("/packages/:id", async (req, res) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+//
+app.get("/a", async (req, res) => {
+  res.json({ a: "a" });
 });
 
 // Update a package
