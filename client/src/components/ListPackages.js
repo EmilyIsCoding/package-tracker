@@ -1,13 +1,16 @@
 import React from "react";
 import EditPackage from "./EditPackage";
 
+const { format, parseISO } = require("date-fns");
+
 const ListPackages = ({ packages, deletePackage, updateDescription }) => {
   return (
     <>
       {" "}
-      <table className="table mt-5 text-center">
+      <table className="table table-striped table-hover mt-5 text-center">
         <thead>
           <tr>
+            <th>Id</th>
             <th>Tracking Number</th>
             <th>Description</th>
             <th>Status</th>
@@ -18,10 +21,18 @@ const ListPackages = ({ packages, deletePackage, updateDescription }) => {
         <tbody>
           {packages.map((pkg) => (
             <tr key={pkg.package_id}>
+              <td>{pkg.package_id}</td>
               <td>{pkg.tracking_number}</td>
               <td>{pkg.description}</td>
               <td>{pkg.status}</td>
-              <td>{pkg.est_delivery_date}</td>
+              <td>
+                {pkg.estimated_delivery_date
+                  ? format(
+                      parseISO(pkg.estimated_delivery_date),
+                      "MMM dd, yyyy 'at' hh:mm aaaa"
+                    )
+                  : "N/A"}
+              </td>
               <td>
                 <EditPackage
                   pkg={pkg}

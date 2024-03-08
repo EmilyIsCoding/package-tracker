@@ -5,7 +5,6 @@ const EasyPostClient = require("@easypost/api");
 const client = new EasyPostClient(process.env.EASYPOST_API_KEY);
 const app = express();
 const cors = require("cors");
-const { format, parseISO } = require("date-fns");
 
 app.use(cors());
 app.use(express.json());
@@ -19,25 +18,18 @@ app.post("/packages", async (req, res) => {
       tracking_code: req.body.tracking_number,
     });
 
-    const estDeliveryDate = format(
-      parseISO(tracker.est_delivery_date),
-      "MMM dd, yyyy 'at' hh:mm aaaa"
-    );
-
     const newPackage = await pool.query(
-      "INSERT INTO packages (tracking_number, description, status, est_delivery_date) VALUES($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO packages (tracking_number, description, status, estimated_delivery_date) VALUES($1, $2, $3, $4) RETURNING *",
       [
         req.body.tracking_number,
         req.body.description,
         tracker.status,
-        estDeliveryDate,
+        tracker.est_delivery_date,
       ]
     );
 
     console.log(newPackage.rows[0]);
-
-    // console.log(tracker);
-    // console.log(estDeliveryDate);
+    console.log(tracker);
     res.json(newPackage.rows[0]);
   } catch (err) {
     console.error(err);
